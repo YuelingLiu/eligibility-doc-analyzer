@@ -26,14 +26,12 @@ toy app.
 
 This project is split into three services in a monorepo:
 
-- `api/` — TypeScript (Express) service that handles requests from the frontend 
-  and orchestrates calls to the AI service.
-- `ai-service/` — Python service responsible for document processing: OCR, data 
-  extraction, and eligibility rule matching. (Planned — not yet built.)
-- `web/` — TypeScript/React frontend where case workers upload and review 
-  documents. (Planned — not yet built.)
+- `api/` — TypeScript (Express) service, currently the only service built.
+- `ai-service/` — Python service. (Planned.)
+- `web/` — TypeScript/React frontend. (Planned.)
 
-**Why split this way?** Python has stronger tooling for OCR/AI work, while 
-TypeScript gives type safety across the API and frontend boundary. Keeping the 
-AI logic isolated in its own service also means it can be swapped, scaled, or 
-tested independently of the web-facing API.
+**Why split this way?** Python and TypeScript are each better suited to 
+different parts of this problem — document/AI processing vs. type-safe API 
+and frontend code. Keeping them as separate services keeps that boundary clean.
+
+
