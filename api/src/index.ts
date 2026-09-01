@@ -27,6 +27,18 @@ app.post('/cases', async (req, res) => {
   }
 });
 
+app.get('/cases', async (req, res) => {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM cases ORDER BY created_at DESC',
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`API running on http://localhost:${PORT}`);
 });
