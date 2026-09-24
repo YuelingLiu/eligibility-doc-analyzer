@@ -1,13 +1,34 @@
 import express from 'express';
 import { pool } from './db.js';
-
-const app = express();
+import multer from 'multer';
 const PORT = 3001;
 
+const app = express();
+const upload = multer({ dest: 'uploads/' });
 app.use(express.json());
 
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
+});
+
+app.post('/documents', upload.single('file'), async (req, res) => {
+  const { caseId, documentType } = req.body;
+  const file = req.file;
+
+  if (!file) {
+    return res.status(400).json({ error: 'No file uploaded' });
+  }
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO documents (case_id, document_type, file_path) VALUES ($1, $2, $3) RETURNING *',
+      [caseId, documentType, file.path],
+    );
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
 });
 
 // endpoint to create a new case
