@@ -35,3 +35,15 @@ different parts of this problem — document/AI processing vs. type-safe API
 and frontend code. Keeping them as separate services keeps that boundary clean.
 
 
+## How to run locally
+
+```bash
+# 1. Start Postgres
+docker-compose up -d
+
+# 2. Run migration (psql)
+psql $DATABASE_URL -f api/migrations/001_create_cases_and_documents.sql
+
+# 3. Start API
+cd api && cp .env.example .env && npm install && npm run dev
+```
