@@ -31,6 +31,22 @@ app.post('/documents', upload.single('file'), async (req, res) => {
   }
 });
 
+// adding a new route to get all documents for a specific case
+app.get('/cases/:id/documents', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await pool.query(
+      'SELECT * FROM documents WHERE case_id = $1 ORDER BY uploaded_at DESC',
+      [id],
+    );
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Database error:', error);
+    res.status(500).json({ error: 'Something went wrong' });
+  }
+});
+
 // endpoint to create a new case
 app.post('/cases', async (req, res) => {
   console.log('Received request:', req.body);
