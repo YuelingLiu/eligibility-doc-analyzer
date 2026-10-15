@@ -18,9 +18,9 @@ toy app.
 |-----------------|--------------------------|------------|
 | API             | TypeScript, Express      | ✅ Built   |
 | AI Service      | Python                   | 🚧 Planned |
-| Database        | PostgreSQL               | 🚧 Planned |
+| Database        | PostgreSQL               | ✅ Built |
 | Frontend        | TypeScript, React        | 🚧 Planned |
-| Dev tooling     | tsx (TS execution)       | ✅ Built   |
+| File uploads   | multer(local disk storage)| ✅ Built   |
 
 ## Architecture
 
